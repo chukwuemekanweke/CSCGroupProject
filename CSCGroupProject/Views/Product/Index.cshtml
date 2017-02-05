@@ -1,0 +1,20 @@
+﻿@using PagedList.Mvc;
+@using CSCGroupProject.Models
+@model PagedList.IPagedList<Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+@{
+    ViewBag.Title = "Products";
+}
+
+@foreach (var p in Model)
+{
+    Html.RenderPartial("ProductSummary", p);
+}
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new
+{
+    page
+}), PagedListRenderOptions.ClassicPlusFirstAndLast)

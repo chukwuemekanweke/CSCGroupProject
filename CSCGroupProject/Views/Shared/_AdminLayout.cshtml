@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/Admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div id="header">        
+        <div class="title">SPORTS STORE</div>
+    </div>
+    <div>
+        @if (TempData["message"] != null)
+        {
+            <div class="Message">@TempData["message"]</div>
+        }
+        @RenderBody()
+    </div>
+</body>
+</html>

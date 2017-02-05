@@ -1,0 +1,49 @@
+﻿@model CSCGroupProject.Models.Cart
+@{
+    ViewBag.Title = "Sports Store: Your Cart";
+}
+<h2>Your cart</h2>
+<table style="width:90%; align-content:center;" >
+    <thead>
+        <tr>
+            <th style="text-align:center">Quantity</th>
+            <th style="text-align:left">Item</th>
+            <th style="text-align:right">Price</th>
+            <th style="text-align:right" align="right">Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.Lines)
+        {
+            <tr>
+                <td style="text-align:center">@line.Quantity</td>
+                <td style="text-align:left">@line.Product.Name</td>
+                <td style="text-align:right">@line.Product.Price.ToString("c")</td>
+                <td style="text-align:right">
+                    @((line.Quantity * line.Product.Price).ToString("c"))
+                </td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart",FormMethod.Post))
+                    {
+                        @Html.Hidden("ProductId", line.Product.ProductID)
+                        @Html.Hidden("ReturnUrl", (string)ViewBag.ReturnUrl)
+                        <input class="actionButtons" type="submit"
+                               value="Remove" />
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" align="right">Total:</td>
+            <td align="right">
+                @Model.ComputeTotalValue().ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<p align="center" class="actionButtons">
+    <a href="@ViewBag.ReturnUrl">Continue shopping</a>
+    @Html.ActionLink("Checkout now", "Checkout")
+</p>
